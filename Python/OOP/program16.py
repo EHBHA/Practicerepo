@@ -8,6 +8,8 @@ class Student():
         self.__rollno = rollno            
         Student.numberOfStudents += 1
 
+    def __call__(self):
+        print("This method is called when the object is treated as method")
 
     def __mymethod(self):
         print("this is private method")
@@ -18,5 +20,6 @@ class Student():
 s1 = Student("abc", 1, 12, 23)
 s2 = Student("def", 2, 13, 45)
 print(s1._marks)  
+s1() # this calls the __call__ method
 # print(s1.__mymethod())  #cannot be accessed
 print(Student.numberOfStudents)
