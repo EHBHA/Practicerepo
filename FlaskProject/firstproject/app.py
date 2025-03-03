@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, Response, send_from_directory, session
+from flask import Flask, request, render_template, Response, send_from_directory, session, make_response
 import os
 import uuid
 app = Flask(__name__, template_folder="templates")
@@ -69,7 +69,30 @@ def getsession():
 @app.route('/clearsession')
 def clearsession():
     session.clear()
+    # session.pop('name')  # clear individual fields
     return render_template('index.html', message=f"session cleared")
+
+
+@app.route("/setcookie")
+def setcookie():
+    response = make_response(render_template('index.html', message='cookie set'))
+    response.set_cookie('cookiename', 'cookievalue')
+    return response
+
+@app.route("/getcookie")
+def getcookie():
+    cookieval = cookieval = request.cookies.get('cookiename')
+    if cookieval:
+        return render_template('index.html', message=f'cookie value is: {cookieval}')
+    else:
+        return render_template('index.html', message=f'cookie not found')
+
+
+@app.route('/removecookie')
+def removecookie():
+    response = make_response(render_template('index.html', message='cookie removed'))
+    response.set_cookie('cookiename', expires=0)
+    return response
 
 
 if __name__=="__main__":
