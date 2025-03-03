@@ -75,13 +75,13 @@ def getsession():
         ho=session['ho']
         return render_template('index.html', message=f"name: {name}, ho: {ho}")
     else:
-        return render_template('index.html', message=f"no session")
+        return render_template('index.html', message="no session")
 
 @app.route('/clearsession')
 def clearsession():
     session.clear()
     # session.pop('name')  # clear individual fields
-    return render_template('index.html', message=f"session cleared")
+    return render_template('index.html', message="session cleared")
 
 
 @app.route("/setcookie")
@@ -92,11 +92,11 @@ def setcookie():
 
 @app.route("/getcookie")
 def getcookie():
-    cookieval = cookieval = request.cookies.get('cookiename')
+    cookieval = request.cookies.get('cookiename')
     if cookieval:
         return render_template('index.html', message=f'cookie value is: {cookieval}')
     else:
-        return render_template('index.html', message=f'cookie not found')
+        return render_template('index.html', message='cookie not found')
 
 
 @app.route('/removecookie')
