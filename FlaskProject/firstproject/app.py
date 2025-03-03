@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, Response, send_from_directory, session, make_response
+from flask import Flask, request, render_template, Response, send_from_directory, session, make_response, jsonify, flash
 import os
 import uuid
 app = Flask(__name__, template_folder="templates")
@@ -17,7 +17,9 @@ def login():
     else:
         username = request.form['username']
         password = request.form['password']
-        return render_template('success.html', username=username)
+        # return render_template('success.html', username=username)
+        flash("login success")
+        return render_template('index.html', message='')
     
 @app.route("/file_upload", methods=['GET','POST'])
 def filehandle():
@@ -45,11 +47,20 @@ def download_file_two():
     file_path = os.path.join('downloads', filename)
     print(file_path)
     file.save(file_path)
-    return render_template('download.html', filename=file_path)
+    return render_template('download.html', filename=filename)
 
 @app.route('/download/<filename>')
 def download(filename):
-    return send_from_directory('downloads', filename)
+    return send_from_directory('downloads', filename, download_name="result.txt")
+
+@app.route("/handlepost", methods=['POST'])
+def hanlde_post():
+    greeting=request.json['greeting']
+    name=request.json['name']
+    with open('file.txt', 'w') as file:
+        file.write(f'{greeting}, {name}')
+
+    return jsonify({'message': 'message written in file'})
 
 @app.route('/setsession')
 def setsession():
