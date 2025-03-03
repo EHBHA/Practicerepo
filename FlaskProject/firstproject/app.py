@@ -1,6 +1,8 @@
-from flask import Flask, request, render_template, Response, send_from_directory, session, make_response, jsonify, flash
+from flask import Flask, abort, request, render_template, Response, send_from_directory, session, make_response, jsonify, flash
 import os
 import uuid
+from werkzeug.utils import secure_filename
+import mimetypes
 app = Flask(__name__, template_folder="templates")
 app.secret_key="12iwuhdwiewiddiwd"
 
@@ -42,8 +44,9 @@ def downloadfile():
 def download_file_two():
     file = request.files['file']
     if not os.path.exists('downloads'):
-        os.mkdir('downloads')
+        os.makedirs('downloads')
     filename = f'{uuid.uuid4()}.txt'
+    filename = secure_filename(filename)
     file_path = os.path.join('downloads', filename)
     print(file_path)
     file.save(file_path)
@@ -51,7 +54,11 @@ def download_file_two():
 
 @app.route('/download/<filename>')
 def download(filename):
-    return send_from_directory('downloads', filename, download_name="result.txt")
+    filename = secure_filename(filename)
+    
+    mime_type, _ = mimetypes.guess_type(filename)
+    print(f"Serving file with MIME type: {mime_type}")
+    return send_from_directory('downloads', filename, download_name="result.txt", as_attachment=True, mimetype=mime_type)
 
 @app.route("/handlepost", methods=['POST'])
 def hanlde_post():

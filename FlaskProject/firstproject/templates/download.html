@@ -7,7 +7,7 @@
 </head>
 <body>
     <p>{{filename}}</p>
-    <a href="/download/{{ filename}}" download >click</a>
-
+    <!-- <a href="/download/{{ filename}}" download >click</a> -->
+    <a href="{{ url_for('download', filename=filename) }} " download>Download File</a>
 </body>
 </html>
