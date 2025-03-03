@@ -1,6 +1,7 @@
 from flask import Flask, abort, request, render_template, Response, send_from_directory, session, make_response, jsonify, flash
 import os
 import uuid
+import pandas as pd
 from werkzeug.utils import secure_filename
 import mimetypes
 app = Flask(__name__, template_folder="templates")
@@ -43,21 +44,20 @@ def downloadfile():
 @app.route("/download_file_two", methods=['POST'])
 def download_file_two():
     file = request.files['file']
+    df=pd.read_excel(file)
     if not os.path.exists('downloads'):
         os.makedirs('downloads')
-    filename = f'{uuid.uuid4()}.txt'
-    filename = secure_filename(filename)
-    file_path = os.path.join('downloads', filename)
-    print(file_path)
-    file.save(file_path)
+    filename = f'{uuid.uuid4()}.csv'
+    df.to_csv(os.path.join('downloads',filename))
+    # filename = secure_filename(filename)
+    # file_path = os.path.join('downloads', filename)
+    # print(file_path)
+    # file.save(file_path)
     return render_template('download.html', filename=filename)
 
 @app.route('/download/<filename>')
 def download(filename):
-    filename = secure_filename(filename)
-    mime_type, _ = mimetypes.guess_type(filename)
-    print(f"Serving file with MIME type: {mime_type}")
-    return send_from_directory('downloads', filename, download_name="result.txt", as_attachment=True, mimetype=mime_type)
+    return send_from_directory('downloads', filename, as_attachment=True)
 
 @app.route("/handlepost", methods=['POST'])
 def hanlde_post():
