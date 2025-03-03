@@ -55,7 +55,6 @@ def download_file_two():
 @app.route('/download/<filename>')
 def download(filename):
     filename = secure_filename(filename)
-    
     mime_type, _ = mimetypes.guess_type(filename)
     print(f"Serving file with MIME type: {mime_type}")
     return send_from_directory('downloads', filename, download_name="result.txt", as_attachment=True, mimetype=mime_type)
