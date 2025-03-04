@@ -2,10 +2,11 @@ from flask import Flask, abort, request, render_template, Response, send_from_di
 import os
 import uuid
 import pandas as pd
-from werkzeug.utils import secure_filename
-import mimetypes
+from flask_bcrypt import Bcrypt
+
 app = Flask(__name__, template_folder="templates")
 app.secret_key="12iwuhdwiewiddiwd"
+bcrypt = Bcrypt()
 
 @app.route("/")
 def hello():
@@ -16,12 +17,17 @@ def hello():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
+        abort(404)
         return 
     else:
         username = request.form['username']
         password = request.form['password']
         # return render_template('success.html', username=username)
-        flash("login success")
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+        is_valid = bcrypt.check_password_hash(hashed_password, password)
+        # print(is_valid)
+        flash(f'login success')
         return render_template('index.html', message='')
     
 @app.route("/file_upload", methods=['GET','POST'])
@@ -55,9 +61,13 @@ def download_file_two():
     # file.save(file_path)
     return render_template('download.html', filename=filename)
 
+
+
 @app.route('/download/<filename>')
 def download(filename):
     return send_from_directory('downloads', filename, as_attachment=True)
+
+
 
 @app.route("/handlepost", methods=['POST'])
 def hanlde_post():
@@ -72,6 +82,9 @@ def hanlde_post():
 def setsession():
     session['name']='abcd'
     session['ho']='qwerty'
+    session['as']='12vfdv'
+    session['ds']='34fgeg'
+    session['we']='98uefijeni'
     return render_template('index.html', message="session created")
 
 @app.route('/getsession')
