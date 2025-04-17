@@ -1,0 +1,122 @@
+{
+    "skus": [
+        {
+            "article_id": "20019578360",
+            "product_type": "REGULAR",
+            "status": "PUBLISHED",
+            "is_active": true,
+            "channels": [
+                {
+                    "channel_id": "cl-marketplace-ripley",
+                    "country_code": "CL",
+                    "channel_type": "MARKETPLACE",
+                    "channel_name": "RIPLEY",
+                    "is_active": true
+                },
+                {
+                    "channel_id": "cl-online_store-shopify",
+                    "country_code": "CL",
+                    "channel_type": "ONLINE_STORE",
+                    "channel_name": "SHOPIFY",
+                    "is_active": true,
+                    "additional_attributes": [
+                        {
+                            "name": "product_id",
+                            "value": "gid://shopify/Product/9662696227106"
+                        },
+                        {
+                            "name": "variant_id",
+                            "value": "gid://shopify/ProductVariant/49713360568610"
+                        },
+                        {
+                            "name": "inventory_id",
+                            "value": "gid://shopify/InventoryItem/51734946119970"
+                        }
+                    ]
+                }
+            ],
+            "has_variants": true,
+            "sku_id": "20998601",
+            "variant_name": "M/L NEGROC1-23",
+            "variant_attributes": [
+                {
+                    "attribute_seq": 1,
+                    "attribute_name": "color",
+                    "attribute_value": "NEGRO"
+                },
+                {
+                    "attribute_seq": 2,
+                    "attribute_name": "size",
+                    "attribute_value": "M/L"
+                }
+            ],
+            "price_info": {
+                "unit_cost": {
+                    "amount": 430,
+                    "fraction": 100,
+                    "currency": "CLP"
+                },
+                "is_tax_included_in_price": true,
+                "is_taxable": true
+            },
+            "article_basic_dtls": {
+                "name": "MEDIA JOSIE ACH160 - ",
+                "description": "Merging traditional technique and contemporary appeal, this pleated cotton sage green jacket is an intriguing revelation in the world of artisanal fashion",
+                "category": "VESACCACC",
+                "manufacturer_name": "VENDOR",
+                "country_of_origin": "Chile",
+                "locale": "en-CL",
+                "currency_code": "CLP",
+                "unit_of_measure": "EA",
+                "image_urls": [
+                    "https://cloverbay-sandbox-s3.s3.us-east-1.amazonaws.com/products/top.jpg"
+                ]
+            },
+            "fulfillment_settings_config": {
+                "is_one_man_fulfillable": true,
+                "is_returnable": false,
+                "return_time_window_days": 14,
+                "shipping_profile_category": "GLOBAL",
+                "min_order_quantity": 1,
+                "shipping_allowed": true,
+                "customer_delivery_allowed": true,
+                "pickup_allowed": true,
+                "freezer_required": false,
+                "ship_by_air_allowed": false,
+                "product_lead_time_in_mins": 2,
+                "release_consolidation_in_mins": 1,
+                "release_cut_off_in_mins": 2,
+                "ship_notification_in_mins": 3
+            },
+            "inventory_settings_config": {
+                "tag_controlled": false,
+                "is_hazmat": false,
+                "is_perishable": false,
+                "special_handling": "NA",
+                "item_substitution_allowed": false,
+                "procurement_allowed": false,
+                "forwarding_allowed": false,
+                "is_serialised_tracking": false,
+                "fifo_tracked": false
+            },
+            "product_dimensions": {
+                "length": {
+                    "dimension_value": 0.0,
+                    "unit_of_measure": "CMS"
+                },
+                "width": {
+                    "dimension_value": 0.0,
+                    "unit_of_measure": "CMS"
+                },
+                "height": {
+                    "dimension_value": 0.0,
+                    "unit_of_measure": "CMS"
+                },
+                "weight": {
+                    "dimension_value": 80.0,
+                    "unit_of_measure": "GMS"
+                }
+            }
+        }
+    ]
+}
