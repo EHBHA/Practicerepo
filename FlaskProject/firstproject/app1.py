@@ -15,30 +15,35 @@ def read_json_from_file(filename):
 def send_json():
     data = read_json_from_file("attr.json")
 
-    if "attributes" not in data:
+    # Validate JSON structure
+    if "attributes" not in data or not isinstance(data["attributes"], list):
         return jsonify({"error": "Invalid JSON format"}), 400
+
+    attributes = data["attributes"]
 
     # Get pagination parameters
     page = int(request.args.get("page", 1))
     page_size = int(request.args.get("size", 10))
 
-    # Validate pagination parameters
     if page < 1 or page_size < 1:
-        return jsonify({"error": "page and page_size must be positive integers"}), 400
+        return jsonify({"error": "page and size must be positive integers"}), 400
 
-    attributes = data["attributes"]
     total_items = len(attributes)
-    
+    total_pages = (total_items + page_size - 1) // page_size
+
     # Pagination logic
     start = (page - 1) * page_size
     end = start + page_size
     paginated_data = attributes[start:end]
 
     response_data = {
-        "page": page,
-        "page_size": page_size,
-        "total_items": total_items,
-        "total_pages": (total_items + page_size - 1) // page_size,
+        "page_info" : {
+            "page": page,
+            "page_size": page_size,
+            "total_items": total_items,
+            "total_pages": total_pages,
+        },
+        
         "attributes": paginated_data
     }
 
